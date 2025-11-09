@@ -1,7 +1,13 @@
 import React from "react";
+import FeaturedFoods from "../../components/FeaturedFoods";
 
 const Home = () => {
-  return <div>This is Home</div>;
+  return (
+    <div>
+      {" "}
+      <FeaturedFoods />
+    </div>
+  );
 };
 
 export default Home;

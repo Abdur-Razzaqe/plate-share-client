@@ -42,7 +42,7 @@ const NavBar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/all-models"}>
+              <NavLink to={"/available-foods"}>
                 <IoLogoModelS /> Available Foods
               </NavLink>
             </li>
@@ -62,7 +62,7 @@ const NavBar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/all-models"}>Available Foods</NavLink>
+            <NavLink to={"/available-foods"}>Available Foods</NavLink>
           </li>
         </ul>
       </div>
