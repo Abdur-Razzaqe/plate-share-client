@@ -1,88 +1,86 @@
 import React, { useContext, useState } from "react";
-
-import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
 import { Link, useNavigate } from "react-router";
-
 import { AuthContext } from "../../context/AuthContext";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import toast from "react-hot-toast";
+import Navbar from "../../components/Navbar";
 
 const Register = () => {
   const { createUser, googleLogin, updateUserProfile } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
     const name = form.name.value;
-    const photo = form.photo.value;
+    const photo = form.photoURL.value;
     const email = form.email.value;
     const password = form.password.value;
 
     if (!/(?=.*[A-Z])/.test(password)) {
       toast.error("password must contain at least one uppercase letter!");
+      setLoading(false);
       return;
     }
     if (!/(?=.*[a-z])/.test(password)) {
       toast.error("password must contain at least one lowercase letter!");
+      setLoading(false);
       return;
     }
     if (password.length < 6) {
       toast.error("password must be at least 6 characters! weak password");
+      setLoading(false);
       return;
     }
+    try {
+      const result = await createUser(email, password);
+      const user = result.user;
+      if (!user) throw new Error("User creation failed");
 
-    createUser(email, password)
-      .then((result) => {
-        const user = result?.user;
-        if (!user) {
-          toast.error("User creation failed");
-          return;
-        }
+      await updateUserProfile(name, photo);
+      toast.success("Registration successfully!");
 
-        updateUserProfile(name, photo)
-          .then(() => {
-            toast.success("Registration successful !");
-            navigate("/");
-          })
-          .catch((error) => {
-            console.error(error.code);
-            toast.error("Profile update failed.");
-          });
-      })
-      .catch((error) => {
-        console.error("Firebase error", error.code);
-        switch (error.code) {
-          case "auth/invalid-email":
-            toast.error("Invalid email address.");
-            break;
-          case "auth/email-already-in-use":
-            toast.error("User already exists! Please login instead.");
-            break;
-          case "auth/weak-password":
-            toast.error(" password is too weak!.");
-
-            break;
-          default:
-            toast.error("Register failed. Please try again later");
-        }
-      });
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      switch (error.code) {
+        case "auth/invalid-email":
+          toast.error("Invalid email address");
+          break;
+        case "auth/email-already- in-use":
+          toast.error("User already exists! Please login");
+          break;
+        case "auth/weak-password":
+          toast.error("Password io too weak!");
+          break;
+        default:
+          toast.error(error.message || "Registration failed.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleGoogleRegister = () => {
-    googleLogin()
-      .then((result) => {
-        toast.success(`Welcome ${result.user.displayName || "user"}!`);
-        navigate("/");
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+
+    try {
+      const result = await googleLogin();
+      toast.success(`Welcome ${result.user.displayName || "User"}!`);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -107,7 +105,7 @@ const Register = () => {
               {/* Photo URL  */}
               <label className=" label text-sm font-semibold">Photo URL</label>
               <input
-                name="photo"
+                name="photoURL"
                 type="text"
                 className="input w-full"
                 placeholder=" Profile photo URL"
@@ -143,16 +141,22 @@ const Register = () => {
               </span>
               <button
                 type="submit"
-                className="btn btn-outline  mt-4 text-white bg-blue-500 hover:bg-blue-600"
+                disabled={loading}
+                className={`btn btn-outline  mt-4 text-white ${
+                  loading ? "bg-gray-400" : " bg-pink-500 hover:bg-pink-600"
+                }`}
               >
-                Register
+                {loading ? "Processing..." : "Register"}
               </button>
             </fieldset>
           </form>
           <div className="divider text-gray-400"> OR</div>
           <button
-            onClick={handleGoogleRegister}
-            className="btn btn-outline w-[85%] mx-auto flex items-center justify-center gap-2 text-white bg-blue-500 hover:bg-blue-600"
+            onClick={handleGoogleSignIn}
+            disabled={loading}
+            className={`btn btn-outline w-[85%] mx-auto flex items-center justify-center gap-2 text-white ${
+              loading ? "bg-gray-400" : "bg-pink-500 hover:bg-pink-600"
+            }`}
           >
             {" "}
             <FcGoogle size={22} />

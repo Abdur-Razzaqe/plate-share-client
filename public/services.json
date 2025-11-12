@@ -166,7 +166,8 @@
   },
   {
     "_id": "ObjectId('672ac0f1a1b2c1a012')",
-    "food_name": "https://i.ibb.co.com/spXP0qXH/pexels-catscoming-367915.jpg",
+    "food_name": "Chicken Rice",
+    "food_image": "https://i.ibb.co.com/BVc0nx5p/Prato-De-Comida-Arroz-Frango-Assado-E-Salada-PNG-Transparente.jpg",
     "food_quantity": "Serves 3 people",
     "pickup_location": "Comilla City, Kandirpar",
     "expire_date": "2025-11-11",
@@ -174,7 +175,7 @@
     "donator": {
       "name": "Lubna Sultana",
       "email": "lubna@example.com",
-      "image": "https://i.ibb.co/bPcK5wG/profile12.jpg"
+      "image": "https://i.ibb.co.com/Wv7sYb6c/images-1.jpg"
     },
     "food_status": "Available"
   }

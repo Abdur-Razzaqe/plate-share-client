@@ -6,8 +6,9 @@ import { AuthContext } from "../../context/AuthContext";
 import { FaEye } from "react-icons/fa6";
 import { IoEye } from "react-icons/io5";
 import toast from "react-hot-toast";
-import NavBar from "../../components/Navbar";
+
 import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
 
 const Login = () => {
   const { signInUser, signInWithGoogle } = use(AuthContext);
@@ -87,7 +88,7 @@ const Login = () => {
 
   return (
     <div>
-      <NavBar />
+      <Navbar />
       <div className="flex justify-center items-center min-h-screen bg-base-200">
         <div className="card bg-base-100 w-full max-w-sm shadow-2xl py-5">
           <h2 className="font-semibold text-2xl text-center">

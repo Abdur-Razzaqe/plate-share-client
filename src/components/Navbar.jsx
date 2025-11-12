@@ -7,7 +7,7 @@ import { FaUser } from "react-icons/fa6";
 import { use } from "react";
 import { AuthContext } from "../context/AuthContext";
 
-const NavBar = () => {
+const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
 
   return (
@@ -100,11 +100,11 @@ const NavBar = () => {
               </li>
 
               <li>
-                <Link to={"/my-models"}>Manage My Foods</Link>
+                <Link to={"/manage-my-foods"}>Manage My Foods</Link>
               </li>
 
               <li>
-                <Link to={"/my-downloads"}>My Food Requests</Link>
+                <Link to={"/my-food-requests"}>My Food Requests</Link>
               </li>
 
               <li>
@@ -131,4 +131,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Navbar;

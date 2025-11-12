@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
+
 import React, { useEffect, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
@@ -100,7 +101,7 @@ const Banner = () => {
           <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center text-white px-6">
             <motion.h1
               key={slides[current].title}
-              initial={{ y: -20, opacity: 0 }}
+              initial={{ y: 20, opacity: 0.5 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6 }}
               className="text-4xl md:text-6xl font-bold mb-4"
