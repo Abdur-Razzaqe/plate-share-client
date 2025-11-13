@@ -14,27 +14,21 @@ const MyFoodRequests = ({ food }) => {
   useEffect(() => {
     if (!isOwner || !food?._id) return;
     setLoading(true);
-    fetch(`http://localhost:3000/foods/${food._id}/request`)
+    fetch(`http://localhost:3000/foods/${food._id}/requests`)
       .then((res) => res.json())
-      .then((data) => setRequests(data))
-      .catch((err) => {
-        console.error(err);
-        toast.error("Failed to load requests");
-      })
-      .finally(() => setLoading(false));
+      .then((data) => setRequests(Array.isArray(data) ? data : []))
+      .catch(() => {
+        toast.error("Failed to load requests").finally(() => setLoading(false));
+      }, [food?._id, isOwner]);
   }, [food?._id, isOwner]);
 
   const handleSubmitRequest = async (e) => {
     e.preventDefault();
-    if (!user) {
-      toast.success("Please login to request food!");
-      return;
-    }
+    if (!user) return;
+    toast.success("Please login to request food!");
 
-    if (!food?._id) {
-      toast.error("Food not found");
-      return;
-    }
+    if (!food?._id) return toast.error("Food not found");
+
     const form = e.target;
     const requestInfo = {
       foodId: food._id,
@@ -69,10 +63,10 @@ const MyFoodRequests = ({ food }) => {
       toast.error("Something went wrong");
     }
   };
-  const handleStatusChange = async (index, newStatus) => {
+  const handleStatusChange = async (reqId, newStatus) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/foods/${food._id}/requests/${index}`,
+        `http://localhost:3000/foods/${food._id}/requests/${reqId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -82,8 +76,9 @@ const MyFoodRequests = ({ food }) => {
       if (!res.ok) throw new Error("Failed to update status");
       toast.success(`Request ${newStatus}!`);
       setRequests((prev) =>
-        prev.map((r, i) => (i === index ? { ...r, status: newStatus } : r))
+        prev.map((r) => (r._id === reqId ? { ...r, status: newStatus } : r))
       );
+
       if (newStatus === "accepted") {
         await fetch(`http://localhost:3000/foods/${food._id}`, {
           method: "PATCH",
@@ -96,24 +91,24 @@ const MyFoodRequests = ({ food }) => {
       toast.error("Failed to update request status");
     }
   };
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+  if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="mt-10">
+    <div className="mt-12">
       {!isOwner && (
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="w-full md:w-auto bg-gradient-to-r from-pink-500 to-rose-400 text-white px-8 py-3 rounded-full font-semibold shadow hover:shadow-lg border border-pink-200 transition"
-        >
-          Request This Food
-        </button>
+        <div className="text-center mb-8">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="w-full md:w-auto bg-gradient-to-r from-pink-500 to-rose-400 text-white px-8 py-3 rounded-full font-semibold shadow hover:shadow-lg border border-pink-200 transition"
+          >
+            Request This Food
+          </button>
+        </div>
       )}
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-pink-50 flex justify-center items-center z-50">
-          <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md">
+          <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md relative">
             <h3 className="text-2xl font-bold text-center mb-5 text-gray-800">
               Request Food
             </h3>
@@ -204,17 +199,16 @@ const MyFoodRequests = ({ food }) => {
                     >
                       {req.status}
                     </td>
-                    <td className="px-4 py-3 flex justify-center gap-2">
-                      {" "}
+                    <td className="px-4 py-3 text-center">
                       {req.status === "pending" && (
                         <>
                           <button
                             onClick={() =>
-                              handleStatusChange(req._id, idx, "accepted")
+                              handleStatusChange(req._id, "accepted")
                             }
-                            className="bg-green-500 hover:bg-green-600 text-white"
+                            className="bg-green-500 hover:bg-green-600 text-white px-3 py-1"
                           >
-                            Accepted
+                            Accept
                           </button>
                           <button
                             onClick={() =>

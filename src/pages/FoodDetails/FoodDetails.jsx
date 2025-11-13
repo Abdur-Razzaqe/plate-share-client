@@ -1,6 +1,6 @@
 import React from "react";
 import { FaClock, FaMapMarkerAlt, FaUser } from "react-icons/fa";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import MyFoodRequests from "../MyFoodRequests/MyFoodRequests";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
@@ -80,9 +80,19 @@ const FoodDetails = () => {
                 </div>
               </div>
             </div>
-            <div>{food._id && <MyFoodRequests food={food} />}</div>
+          </div>
+          <div className="mt-6 text-center">
+            <Link
+              to={"/my-food-requests"}
+              className="bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-full shadow-md transition cursor-pointer"
+            >
+              Request Food
+            </Link>
           </div>
         </div>
+      </div>
+      <div className=" max-w-6xl mx-auto mt-12">
+        <MyFoodRequests food={food} />
       </div>
     </div>
   );

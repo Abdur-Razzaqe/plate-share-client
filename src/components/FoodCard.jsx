@@ -54,7 +54,7 @@ const FoodCard = ({ food }) => {
           <div className="flex justify-between items-center gap-10">
             <div className="flex items-center gap-3">
               <img
-                src={image || "https//via.placeholder.com/40"}
+                src={food.donator.image || "https//via.placeholder.com/40"}
                 alt={name}
                 className="w-8 h-8 rounded-full border"
               />
