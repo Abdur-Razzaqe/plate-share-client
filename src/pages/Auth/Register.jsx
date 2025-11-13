@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import Navbar from "../../components/Navbar";
 
 const Register = () => {
-  const { createUser, googleLogin, updateUserProfile } =
+  const { createUser, signInWithGoogle, updateUserProfile } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -72,7 +72,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const result = await googleLogin();
+      const result = await signInWithGoogle();
       toast.success(`Welcome ${result.user.displayName || "User"}!`);
       navigate("/");
     } catch (error) {

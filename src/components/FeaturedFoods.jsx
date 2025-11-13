@@ -4,21 +4,24 @@ import FoodCard from "./FoodCard";
 import LoadingSpinner from "./LoadingSpinner";
 
 const FeaturedFoods = () => {
-  const [data, setFoods] = useState([]);
+  const [foods, setFoods] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchFoods = async () => {
+      setLoading(true);
       try {
         const res = await fetch("http://localhost:3000/foods");
         const data = await res.json();
-        setLoading(true);
-        const sorted = data
+
+        const allFoods = Array.isArray(data) ? data : data?.result || [];
+
+        const sorted = allFoods
           .filter((item) => item.food_status === "Available")
           .sort((a, b) => {
-            const numA = parseInt(a.food_quantity.match(/\d+/));
-            const numB = parseInt(b.food_quantity.match(/\d+/));
+            const numA = parseInt(a.food_quantity.match(/\d+/))?.[0] || 0;
+            const numB = parseInt(b.food_quantity.match(/\d+/))?.[0] || 0;
             return numB - numA;
           })
           .slice(0, 6);
@@ -30,8 +33,10 @@ const FeaturedFoods = () => {
         setLoading(false);
       }
     };
+
     fetchFoods();
   }, []);
+
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -43,7 +48,7 @@ const FeaturedFoods = () => {
       </h2>
 
       <div className="grid grid-col md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {data.map((food) => (
+        {foods.map((food) => (
           <FoodCard key={food._id} food={food} />
         ))}
       </div>

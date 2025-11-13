@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import { AuthContext } from "./AuthContext";
+import toast from "react-hot-toast";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -36,9 +37,21 @@ const AuthProvider = ({ children }) => {
     return updateProfile(auth.currentUser, { displayName, photoURL });
   };
 
-  const signOutUser = () => {
+  const signOutUser = (navigate) => {
     setLoading(true);
-    return signOut(auth);
+    return (
+      signOut(auth)
+        .then(() => {
+          toast.success("Logged out successfully!");
+          navigate("/");
+        })
+        // .catch((error) => {
+        //   toast.error(error.message);
+        // })
+        .finally(() => {
+          setLoading(false);
+        })
+    );
   };
 
   useEffect(() => {
