@@ -9,11 +9,15 @@ import AddFood from "../pages/AddFood/AddFood";
 import FoodDetails from "../pages/FoodDetails/FoodDetails";
 import ManageMyFoods from "../pages/ManageMyFoods/ManageMyFoods";
 import MyFoodRequests from "../pages/MyFoodRequests/MyFoodRequests";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
+    hydrateFallbackElement: <LoadingSpinner />,
     children: [
       {
         path: "/",
@@ -57,6 +61,7 @@ export const router = createBrowserRouter([
             <MyFoodRequests />
           </PrivateRoute>
         ),
+        loader: () => fetch("http://localhost:3000/foods"),
       },
     ],
   },
@@ -67,5 +72,9 @@ export const router = createBrowserRouter([
   {
     path: "/auth/register",
     element: <Register />,
+  },
+  {
+    path: "/*",
+    element: <ErrorPage />,
   },
 ]);

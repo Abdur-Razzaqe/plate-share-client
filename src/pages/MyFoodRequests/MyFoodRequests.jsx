@@ -3,9 +3,8 @@ import { AuthContext } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
-const MyFoodRequests = ({ food }) => {
+const MyFoodRequests = ({ food, openModal, setOpenModal }) => {
   const { user } = useContext(AuthContext);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -13,23 +12,36 @@ const MyFoodRequests = ({ food }) => {
 
   useEffect(() => {
     if (!isOwner || !food?._id) return;
-    setLoading(true);
-    fetch(`http://localhost:3000/foods/${food._id}/requests`)
-      .then((res) => res.json())
-      .then((data) => setRequests(Array.isArray(data) ? data : []))
-      .catch(() => {
-        toast.error("Failed to load requests").finally(() => setLoading(false));
-      }, [food?._id, isOwner]);
-  }, [food?._id, isOwner]);
+
+    const loadRequests = async () => {
+      setLoading(true);
+
+      try {
+        const res = await fetch(
+          `http://localhost:3000/foods/${food._id}/requests`
+        );
+        const data = await res.json();
+
+        setRequests(Array.isArray(data.result) ? data.result : []);
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to load requests");
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadRequests();
+  }, [isOwner, food?._id]);
 
   const handleSubmitRequest = async (e) => {
     e.preventDefault();
-    if (!user) return;
-    toast.success("Please login to request food!");
-
-    if (!food?._id) return toast.error("Food not found");
+    if (!user) {
+      toast.error("Please login to request food!");
+      return;
+    }
 
     const form = e.target;
+
     const requestInfo = {
       foodId: food._id,
       food_name: food.food_name,
@@ -54,27 +66,27 @@ const MyFoodRequests = ({ food }) => {
         }
       );
 
-      if (!res.ok) throw new Error("Failed to submit `request");
+      const data = await res.json();
+      if (!data.insertedId) throw new Error("Request failed");
+
       toast.success("Your food request has been submitted!");
-      setIsModalOpen(false);
       form.reset();
+      setOpenModal(false);
     } catch (err) {
       console.error(err);
-      toast.error("Something went wrong");
+      toast.error("Failed to submit request");
     }
   };
+
   const handleStatusChange = async (reqId, newStatus) => {
     try {
-      const res = await fetch(
-        `http://localhost:3000/foods/${food._id}/requests/${reqId}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: newStatus }),
-        }
-      );
-      if (!res.ok) throw new Error("Failed to update status");
+      await fetch(`http://localhost:3000/foods/${food._id}/requests/${reqId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
       toast.success(`Request ${newStatus}!`);
+
       setRequests((prev) =>
         prev.map((r) => (r._id === reqId ? { ...r, status: newStatus } : r))
       );
@@ -88,9 +100,10 @@ const MyFoodRequests = ({ food }) => {
       }
     } catch (err) {
       console.error(err);
-      toast.error("Failed to update request status");
+      toast.error("Failed to submit request");
     }
   };
+
   if (loading) return <LoadingSpinner />;
 
   return (
@@ -98,7 +111,7 @@ const MyFoodRequests = ({ food }) => {
       {!isOwner && (
         <div className="text-center mb-8">
           <button
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setOpenModal(true)}
             className="w-full md:w-auto bg-gradient-to-r from-pink-500 to-rose-400 text-white px-8 py-3 rounded-full font-semibold shadow hover:shadow-lg border border-pink-200 transition"
           >
             Request This Food
@@ -106,7 +119,7 @@ const MyFoodRequests = ({ food }) => {
         </div>
       )}
 
-      {isModalOpen && (
+      {openModal && !isOwner && (
         <div className="fixed inset-0 bg-pink-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md relative">
             <h3 className="text-2xl font-bold text-center mb-5 text-gray-800">
@@ -114,7 +127,6 @@ const MyFoodRequests = ({ food }) => {
             </h3>
             <form onSubmit={handleSubmitRequest} className="space-y-4">
               <input
-                type="text"
                 name="location"
                 required
                 placeholder="Write your location"
@@ -128,7 +140,6 @@ const MyFoodRequests = ({ food }) => {
               ></textarea>
 
               <input
-                type="text"
                 name="contact"
                 required
                 placeholder="Contact Number"
@@ -137,17 +148,16 @@ const MyFoodRequests = ({ food }) => {
               <div className="flex justify-end gap-3 pt-2">
                 <button
                   type="button"
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => setOpenModal(false)}
                   className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  onClick={() => setIsModalOpen(true)}
                   className="px-4 py-2 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition"
                 >
-                  Submit Request
+                  Submit
                 </button>
               </div>
             </form>
@@ -156,7 +166,7 @@ const MyFoodRequests = ({ food }) => {
       )}
 
       {isOwner && (
-        <div className="mt-10 border border-pink-100 rounded-2xl overflow-x-auto shadow">
+        <div className="mt-10 border border-pink-100 rounded-2xl overflow-x-auto shadow text-center">
           <h3 className="text-xl font-semibold text-gray-800 px-4 pt-4">
             Food Requests
           </h3>
@@ -175,8 +185,8 @@ const MyFoodRequests = ({ food }) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-pink-50 bg-white">
-                {requests.map((req, idx) => (
-                  <tr key={req._id || idx}>
+                {requests.map((req) => (
+                  <tr key={req._id}>
                     <td className="px-4 py-3 flex items-center gap-2">
                       <img
                         src={req.userPhoto}
@@ -212,7 +222,7 @@ const MyFoodRequests = ({ food }) => {
                           </button>
                           <button
                             onClick={() =>
-                              handleStatusChange(req._id, idx, "rejected")
+                              handleStatusChange(req._id, "rejected")
                             }
                             className="bg-red-500 hover:bg-red-600 text-white"
                           >

@@ -147,7 +147,7 @@ const AddFood = () => {
             <textarea
               name="additional_note"
               type="text"
-              value={formData.additional_notes}
+              // value={formData.additional_notes}
               onChange={handleChange}
               rows="3"
               placeholder="Any extra info..."

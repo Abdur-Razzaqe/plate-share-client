@@ -1,8 +1,9 @@
 import { Link, NavLink } from "react-router";
 import { IoLogoModelS } from "react-icons/io";
 import { GoHomeFill } from "react-icons/go";
-import { IoLogIn, IoLogOut } from "react-icons/io5";
+import { IoFastFoodOutline, IoLogIn, IoLogOut } from "react-icons/io5";
 import { FaUser } from "react-icons/fa6";
+import logo from "../assets/logo.jpg";
 
 import { use } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -11,7 +12,7 @@ const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
 
   return (
-    <div className="navbar py-0 min-h-0 z-1 shadow-sm rounded-full glass-card max-w-7xl">
+    <div className="navbar py-0 min-h-0 z-1 shadow-sm gap-2 glass-card max-w-7xl">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
@@ -43,12 +44,13 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink to={"/available-foods"}>
-                <IoLogoModelS /> Available Foods
+                <IoFastFoodOutline /> Available Foods
               </NavLink>
             </li>
           </ul>
         </div>
         <Link to={"/"} className="flex items-center gap-1 text-xl font-bold">
+          <img src={logo} alt="" className="w-8 h-8" />
           <span className="text-red-400">Plate</span>
           <span className="text-green-400">Share</span>
         </Link>
@@ -62,7 +64,11 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/available-foods"}>Available Foods</NavLink>
+            <NavLink to={"/available-foods"}>
+              {" "}
+              <IoFastFoodOutline />
+              Available Foods
+            </NavLink>
           </li>
         </ul>
       </div>
