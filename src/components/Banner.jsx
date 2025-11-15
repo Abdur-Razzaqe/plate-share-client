@@ -74,7 +74,7 @@ const Banner = () => {
   //   setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <div className="relative w-full h-[50vh] overflow-hidden rounded-lg shadow-lg">
+    <div className="relative h-[40vh] w-full md:h-[60vh] overflow-hidden rounded-lg shadow-lg">
       <AnimatePresence custom={direction} mode="wait">
         <motion.div
           key={slides[current].id}

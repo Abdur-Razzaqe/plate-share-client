@@ -1,21 +1,23 @@
 import { Link, NavLink } from "react-router";
-import { IoLogoModelS } from "react-icons/io";
 import { GoHomeFill } from "react-icons/go";
 import { IoFastFoodOutline, IoLogIn, IoLogOut } from "react-icons/io5";
 import { FaUser } from "react-icons/fa6";
 import logo from "../assets/logo.jpg";
-
-import { use } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import icon from "../assets/icon.jpg";
 
 const Navbar = () => {
-  const { user, signOutUser } = use(AuthContext);
+  const { user, signOutUser } = useContext(AuthContext);
+
+  const activeClass =
+    "text-pink-500 border-b-2 border-pink-500 transition duration-300";
 
   return (
-    <div className="navbar py-0 min-h-0 z-1 shadow-sm gap-2 glass-card max-w-7xl">
+    <div className="navbar py-0 min-h-0 rounded-full shadow-sm gap-2 glass-card max-w-7xl">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
+          <div tabIndex={0} role="button" className="btn  md:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -37,13 +39,19 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <NavLink to={"/"}>
+              <NavLink
+                to={"/"}
+                className={({ isActive }) => (isActive ? activeClass : "")}
+              >
                 <GoHomeFill />
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/available-foods"}>
+              <NavLink
+                to={"/available-foods"}
+                className={({ isActive }) => (isActive ? activeClass : "")}
+              >
                 <IoFastFoodOutline /> Available Foods
               </NavLink>
             </li>
@@ -55,16 +63,28 @@ const Navbar = () => {
           <span className="text-green-400">Share</span>
         </Link>
       </div>
-      <div className="navbar-center hidden md:flex">
+      <div className="navbar-center hidden md:flex font-semibold">
         <ul className="menu menu-horizontal px-1 gap-10">
           <li>
-            <NavLink to={"/"}>
+            <NavLink
+              to={"/"}
+              className={({ isActive }) =>
+                "flex items-center gap-1 px-3 py-2 rounded-md" +
+                (isActive ? activeClass : "text-gray-700 hover:text-pink-500")
+              }
+            >
               <GoHomeFill />
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/available-foods"}>
+            <NavLink
+              to={"/available-foods"}
+              className={({ isActive }) =>
+                "flex items-center gap-1 px-3 py-2 rounded-md font-bold" +
+                (isActive ? activeClass : "text-gray-700 hover:text-pink-500")
+              }
+            >
               {" "}
               <IoFastFoodOutline />
               Available Foods
@@ -81,14 +101,20 @@ const Navbar = () => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-9 border-2 border-gray-300 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  referrerPolicy="no-referrer"
-                  src={
-                    user.photoURL ||
-                    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  }
-                />
+                {user.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt="User"
+                    onError={(e) => (e.target.src = icon)}
+                    className="rounded-full w-8 h-8 border border-gray-300 object-cover"
+                  />
+                ) : (
+                  <div className="rounded-full w-8 h-8 border border-gray-300 flex justify-center items-center text-sm font-semibold">
+                    {user.displayName
+                      ? user.displayName.charAt(0).toUpperCase()
+                      : "U"}
+                  </div>
+                )}
               </div>
             </div>
             <ul

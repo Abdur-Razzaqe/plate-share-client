@@ -84,22 +84,22 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <Navbar />{" "}
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="card bg-base-100 w-full max-w-sm shadow-2xl py-5">
-          <h2 className="font-semibold text-2xl text-center">
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <div className="flex-grow flex justify-center items-center bg-base-200 px-4">
+        <div className="card bg-white w-full max-w-sm shadow-xl py-6 px-6 rounded-2xl">
+          <h2 className="font-bold text-2xl text-center text-pink-500 mb-4">
             Register your account
           </h2>
-          <form onSubmit={handleRegister} className="card-body">
-            <fieldset className="fieldset">
+          <form onSubmit={handleRegister} className="card-body space-y-4">
+            <fieldset className="fieldset space-x-2">
               {/* Name  */}
               <label className="label text-sm font-semibold ">Name</label>
               <input
                 name="name"
                 type="Text"
-                className="input w-full"
-                placeholder="Name"
+                className="input w-full input-border"
+                placeholder=" Your full name"
                 required
               />
               {/* Photo URL  */}
@@ -108,7 +108,7 @@ const Register = () => {
                 name="photoURL"
                 type="text"
                 className="input w-full"
-                placeholder=" Profile photo URL"
+                placeholder=" photo URL"
               />
 
               {/* Email  */}
@@ -122,19 +122,18 @@ const Register = () => {
               />
 
               {/* Password */}
-              <span className="relative">
-                {" "}
+              <span className="relative space-y-2">
                 <label className="label text-sm font-semibold">Password</label>
                 <input
                   name="password"
                   type={show ? "text" : "password"}
-                  className="input w-full"
+                  className="input w-full input-border"
                   placeholder="Password"
                   required
                 />
                 <span
                   onClick={() => setShow(!show)}
-                  className="absolute right-4 top-7 cursor-pointer z-50"
+                  className="absolute right-4 top-10 cursor-pointer text-gray-500"
                 >
                   {show ? <FaEye size={24} /> : <IoEye size={24} />}
                 </span>
@@ -142,8 +141,10 @@ const Register = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className={`btn btn-outline  mt-4 text-white ${
-                  loading ? "bg-gray-400" : " bg-pink-500 hover:bg-pink-600"
+                className={`w-full py-2 rounded-full font-semibold text-white transition ${
+                  loading
+                    ? "bg-gray-400"
+                    : " bg-gradient-to-r from-pink-500 to-rose-400  hover:bg-pink-600 hover:to-rose-500"
                 }`}
               >
                 {loading ? "Processing..." : "Register"}
@@ -154,8 +155,10 @@ const Register = () => {
           <button
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className={`btn btn-outline w-[85%] mx-auto flex items-center justify-center gap-2 text-white ${
-              loading ? "bg-gray-400" : "bg-pink-500 hover:bg-pink-600"
+            className={`w-full py-2 rounded-full  mx-auto flex items-center justify-center gap-2 font-semibold text-white transition ${
+              loading
+                ? "bg-gray-400"
+                : "bg-gradient-to-r from-pink-500 to rose-400 hover:pink-600 hover:to bg-rose-500"
             }`}
           >
             {" "}

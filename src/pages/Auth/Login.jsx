@@ -89,13 +89,16 @@ const Login = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex justify-center items-center min-h-screen bg-base-200">
-        <div className="card bg-base-100 w-full max-w-sm shadow-2xl py-5">
-          <h2 className="font-semibold text-2xl text-center">
-            Login to your account
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from bg-pink-300 via-pink-400 to bg-purple-400 px-4">
+        <div className="card backdrop-blur-xl bg-white/20 border-warning/30 shadow-2xl p-8 rounded-3xl w-full max-w-md">
+          <h2 className="font-bold text-3xl text-center mb-6 text-gray-900">
+            Welcome Back
           </h2>
+          <p className="text-center text-gray-600 mb-6">
+            Login to continue your journey
+          </p>
           <form onSubmit={handleLogin} className="card-body">
-            <fieldset className="fieldset space-y-2">
+            <fieldset className="fieldset space-y-5">
               {/* Email  */}
               <div>
                 <label className="label text-sm font-semibold">Email</label>
@@ -104,7 +107,7 @@ const Login = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="input w-full"
+                  className="input w-full mt-1 border-gray-300 bg-white/70 backdrop-blur-sm"
                   placeholder="Email"
                   required
                 />
@@ -116,7 +119,7 @@ const Login = () => {
                 <input
                   name="password"
                   type={show ? "text" : "password"}
-                  className="input w-full"
+                  className="input w-full mt-1 border-gray-300 bg-white/70 backdrop-blur-sm"
                   placeholder="Password"
                   required
                 />
@@ -127,34 +130,29 @@ const Login = () => {
                   {show ? <FaEye size={24} /> : <IoEye size={24} />}
                 </span>
               </div>
-              <div>
-                <button
-                  type="button"
-                  onClick={() =>
-                    navigate("/forget-password", { state: { email } })()
-                  }
-                  className="link link-hover text-sm font-semibold"
-                >
-                  Forgot password?
-                </button>
-              </div>
+
               <button
                 type="submit"
-                className="btn btn-outline  mt-4 text-white bg-blue-500 hover:bg-blue-600"
+                className="btn btn-outline  mt-4 text-white bg-gradient-to-r from-pink-500 to-rose-500 rounded-full w-full py-3 font-semibold shadow-md hover:scale-[1.02] transition"
               >
                 Login
               </button>
               <div className="divider text-gray-400"> OR</div>
               <button
                 onClick={handleGoogleSignIn}
-                className="btn btn-outline text-white bg-blue-500 hover:bg-blue-600 "
+                className="btn btn-outline w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white/70 backdrop-blur-sm border shadow hover:bg white transition  "
               >
                 <FcGoogle />
-                Sign in with Google
+                <span className="font-semibold text-gray-700">
+                  Sign in with Google
+                </span>
               </button>
-              <p className="font-semibold text-center">
+              <p className=" text-center font-medium mt-3 text-gray-700 ">
                 Don't have an Account ?{" "}
-                <Link to="/auth/register" className="text-secondary">
+                <Link
+                  to="/auth/register"
+                  className=" text-pink-700 font-semibold hover:underline"
+                >
                   Register
                 </Link>
               </p>
