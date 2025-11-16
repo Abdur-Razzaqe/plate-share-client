@@ -82,7 +82,7 @@ const Banner = () => {
 
   return (
     <div
-      className="relative h-[50vh] w-full md:h-[70vh] overflow-hidden rounded-lg shadow-lg"
+      className="relative h-[40vh] w-full md:h-[60vh] overflow-hidden rounded-lg shadow-lg"
       onMouseEnter={() => setAutoSlide(false)}
       onMouseLeave={() => setAutoSlide(true)}
     >
@@ -112,7 +112,7 @@ const Banner = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6 }}
-              className="text-3xl md:text-3xl font-bold mb-4"
+              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4"
             >
               {slides[index].title}
             </motion.h1>
@@ -130,7 +130,7 @@ const Banner = () => {
             <div className="">
               <form
                 onSubmit={handleSearch}
-                className="flex flex-col sm:flex-row justify-center items-center text-center w-full px-4 md:px-0"
+                className="flex justify-center items-center text-center w-full px-4 md:px-0"
               >
                 <input
                   type="text"

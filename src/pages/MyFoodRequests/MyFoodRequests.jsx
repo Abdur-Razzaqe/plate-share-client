@@ -108,7 +108,7 @@ const MyFoodRequests = ({ food, openModal, setOpenModal }) => {
 
   return (
     <div className="mt-12">
-      {!isOwner && (
+      {/* {!isOwner && (
         <div className="text-center mb-8">
           <button
             onClick={() => setOpenModal(true)}
@@ -117,7 +117,7 @@ const MyFoodRequests = ({ food, openModal, setOpenModal }) => {
             Request This Food
           </button>
         </div>
-      )}
+      )} */}
 
       {openModal && !isOwner && (
         <div className="fixed inset-0 bg-pink-50 flex justify-center items-center z-50">
@@ -199,7 +199,7 @@ const MyFoodRequests = ({ food, openModal, setOpenModal }) => {
                     <td className="px-4 py-3">{req.location}</td>
                     <td className="px-4 py-3">{req.reason}</td>
                     <td
-                      className={`px-4 py-3 text-center font-semibold ${
+                      className={`px-4 py-2 text-center font-semibold gap-1 ${
                         req.status === "pending"
                           ? "text-yellow-500"
                           : req.status === "accepted"
@@ -209,25 +209,27 @@ const MyFoodRequests = ({ food, openModal, setOpenModal }) => {
                     >
                       {req.status}
                     </td>
-                    <td className="px-4 py-3 text-center">
+                    <td className="px-4 py-2 text-center  gap-2">
                       {req.status === "pending" && (
                         <>
-                          <button
-                            onClick={() =>
-                              handleStatusChange(req._id, "accepted")
-                            }
-                            className="bg-green-500 hover:bg-green-600 text-white px-3 py-1"
-                          >
-                            Accept
-                          </button>
-                          <button
-                            onClick={() =>
-                              handleStatusChange(req._id, "rejected")
-                            }
-                            className="bg-red-500 hover:bg-red-600 text-white"
-                          >
-                            Reject
-                          </button>
+                          <div className="space-y-2 ">
+                            <button
+                              onClick={() =>
+                                handleStatusChange(req._id, "accepted")
+                              }
+                              className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 w-full rounded-xl "
+                            >
+                              Accept
+                            </button>
+                            <button
+                              onClick={() =>
+                                handleStatusChange(req._id, "rejected")
+                              }
+                              className="bg-red-500 hover:bg-red-600 text-white px-2 py-1 w-full rounded-xl"
+                            >
+                              Reject
+                            </button>
+                          </div>
                         </>
                       )}
                     </td>
