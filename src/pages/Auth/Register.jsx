@@ -84,9 +84,9 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col max-w-7xl mx-auto">
       <Navbar />
-      <div className="flex-grow flex justify-center items-center bg-base-200 px-4">
+      <div className="flex-grow flex justify-center items-center bg-base-200 px-4 py-6">
         <div className="card bg-white w-full max-w-sm shadow-xl py-6 px-6 rounded-2xl">
           <h2 className="font-bold text-2xl text-center text-pink-500 mb-4">
             Register your account
@@ -98,7 +98,7 @@ const Register = () => {
               <input
                 name="name"
                 type="Text"
-                className="input w-full input-border"
+                className="input input-border"
                 placeholder=" Your full name"
                 required
               />
@@ -107,7 +107,7 @@ const Register = () => {
               <input
                 name="photoURL"
                 type="text"
-                className="input w-full"
+                className="input w-full mt-1 border-gray-300 bg-white/70 backdrop-blur-sm"
                 placeholder=" photo URL"
               />
 
@@ -116,7 +116,7 @@ const Register = () => {
               <input
                 name="email"
                 type="email"
-                className="input w-full"
+                className="input w-full mt-1 border-gray-300 bg-white/70 backdrop-blur-sm"
                 placeholder="Email"
                 required
               />
@@ -127,7 +127,7 @@ const Register = () => {
                 <input
                   name="password"
                   type={show ? "text" : "password"}
-                  className="input w-full input-border"
+                  className="input w-full mt-1 border-gray-300 bg-white/70 backdrop-blur-sm "
                   placeholder="Password"
                   required
                 />
@@ -141,7 +141,7 @@ const Register = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full py-2 rounded-full font-semibold text-white transition ${
+                className={`w-full py-3 gap-3 rounded-full font-semibold text-white transition ${
                   loading
                     ? "bg-gray-400"
                     : " bg-gradient-to-r from-pink-500 to-rose-400  hover:bg-pink-600 hover:to-rose-500"
@@ -155,11 +155,7 @@ const Register = () => {
           <button
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className={`w-full py-2 rounded-full  mx-auto flex items-center justify-center gap-2 font-semibold text-white transition ${
-              loading
-                ? "bg-gray-400"
-                : "bg-gradient-to-r from-pink-500 to rose-400 hover:pink-600 hover:to bg-rose-500"
-            }`}
+            className="btn btn-outline w-full flex items-center justify-center gap-3 py-3 rounded-full bg-white/70 backdrop-blur-sm border shadow hover:bg white transition "
           >
             {" "}
             <FcGoogle size={22} />

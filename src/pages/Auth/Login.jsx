@@ -87,17 +87,17 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col max-w-7xl mx-auto">
       <Navbar />
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from bg-pink-300 via-pink-400 to bg-purple-400 px-4">
-        <div className="card backdrop-blur-xl bg-white/20 border-warning/30 shadow-2xl p-8 rounded-3xl w-full max-w-md">
+      <div className="flex-grow flex justify-center items-center bg-base-200 px-4 py-6">
+        <div className="card bg-white w-full max-w-sm shadow-xl py-6 px-6 rounded-2xl">
           <h2 className="font-bold text-3xl text-center mb-6 text-gray-900">
             Welcome Back
           </h2>
-          <p className="text-center text-gray-600 mb-6">
+          <p className="text-center text-pink-400 mb-6">
             Login to continue your journey
           </p>
-          <form onSubmit={handleLogin} className="card-body">
+          <form onSubmit={handleLogin} className="card-body space-y-5">
             <fieldset className="fieldset space-y-5">
               {/* Email  */}
               <div>
@@ -147,7 +147,7 @@ const Login = () => {
                   Sign in with Google
                 </span>
               </button>
-              <p className=" text-center font-medium mt-3 text-gray-700 ">
+              <p className=" font-semibold text-center py-2 ">
                 Don't have an Account ?{" "}
                 <Link
                   to="/auth/register"
