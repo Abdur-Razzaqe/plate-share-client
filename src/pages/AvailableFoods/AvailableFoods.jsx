@@ -1,15 +1,38 @@
-import React from "react";
-import { useLoaderData, useNavigation } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 import FoodCard from "../../components/FoodCard";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
 const AvailableFoods = () => {
-  const data = useLoaderData();
+  // const data = useLoaderData();
+  // const navigation = useNavigation();
 
-  const navigation = useNavigation();
-  const foods = Array.isArray(data?.result) ? data.result : [];
+  const [foods, setFoods] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("search") || "";
 
-  if (navigation.state === "loading") {
+  useEffect(() => {
+    const fetchFoods = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:3000/foods?search=${encodeURIComponent(
+            searchQuery
+          )}`
+        );
+
+        const data = await res.json();
+        setFoods(Array.isArray(data?.result) ? data.result : []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchFoods();
+  }, [searchQuery]);
+
+  if (loading) {
     return <LoadingSpinner />;
   }
 

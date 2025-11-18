@@ -51,16 +51,18 @@ const Banner = () => {
     setDirection(-1);
     setIndex((prev) => (prev - 1 + slides.length) % slides.length);
   };
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (!searchTerm.trim()) return;
-    setAutoSlide(false);
+
+  useEffect(() => {
+    if (!searchTerm) return;
     setLoading(true);
-    setTimeout(() => {
+
+    const timer = setTimeout(() => {
       navigate(`/available-foods?search=${searchTerm}`);
       setLoading(false);
-    }, 1000);
-  };
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm, navigate]);
 
   const variants = {
     enter: (dir) => ({
@@ -128,10 +130,7 @@ const Banner = () => {
             </motion.p>
 
             <div className="">
-              <form
-                onSubmit={handleSearch}
-                className="flex justify-center items-center text-center w-full px-4 md:px-0"
-              >
+              <form className="flex justify-center items-center text-center w-full px-4 md:px-0">
                 <input
                   type="text"
                   placeholder="Search for food...."
