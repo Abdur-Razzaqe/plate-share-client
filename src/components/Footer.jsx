@@ -9,13 +9,13 @@ import {
 const Footer = () => {
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-gradient-to-r from-pink-600 via-purple-600 to-rose-600 text-gray-100pt-14 pb-8">
+    <footer className="bg-gradient-to-r from-pink-600 via-purple-600 to-rose-600  pt-14 rounded-2xl">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:left ">
         <div className="flex flex-col items-center md:items-start">
           <h2 className="text-3xl font-bold text-white mb-3">
             <span>PlateShare</span>
           </h2>
-          <p className="text-sm opacity-90 max-w-xs">
+          <p className="text-sm opacity-90 max-w-xs text-white">
             Share food, spread smiles. Together we can build a community where
             no food goes to waste.
           </p>

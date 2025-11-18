@@ -108,17 +108,6 @@ const MyFoodRequests = ({ food, openModal, setOpenModal }) => {
 
   return (
     <div className="mt-12">
-      {/* {!isOwner && (
-        <div className="text-center mb-8">
-          <button
-            onClick={() => setOpenModal(true)}
-            className="w-full md:w-auto bg-gradient-to-r from-pink-500 to-rose-400 text-white px-8 py-3 rounded-full font-semibold shadow hover:shadow-lg border border-pink-200 transition"
-          >
-            Request This Food
-          </button>
-        </div>
-      )} */}
-
       {openModal && !isOwner && (
         <div className="fixed inset-0 bg-pink-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md relative">

@@ -82,7 +82,7 @@ const Banner = () => {
 
   return (
     <div
-      className="relative h-[40vh] w-full md:h-[60vh] overflow-hidden rounded-lg shadow-lg"
+      className="relative h-[30vh] w-full md:h-[50vh] overflow-hidden rounded-lg shadow-lg"
       onMouseEnter={() => setAutoSlide(false)}
       onMouseLeave={() => setAutoSlide(true)}
     >

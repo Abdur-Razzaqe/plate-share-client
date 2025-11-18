@@ -11,6 +11,7 @@ import ManageMyFoods from "../pages/ManageMyFoods/ManageMyFoods";
 import MyFoodRequests from "../pages/MyFoodRequests/MyFoodRequests";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import LoadingSpinner from "../components/LoadingSpinner";
+import MyRequests from "../pages/MyFoodRequests/MyRequests";
 
 export const router = createBrowserRouter([
   {
@@ -58,7 +59,7 @@ export const router = createBrowserRouter([
         path: "/my-food-requests",
         element: (
           <PrivateRoute>
-            <MyFoodRequests />
+            <MyRequests />
           </PrivateRoute>
         ),
         loader: () => fetch("http://localhost:3000/foods"),
