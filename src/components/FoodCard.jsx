@@ -68,21 +68,21 @@ const FoodCard = ({ food }) => {
                 <p className="text-gray-700 text-sm font-medium">{name}</p>
               </div>
             </div>
-            <p className="text-gray-600 text-sm font-medium">
+            <p className="text-gray-600 text-sm ">
               {" "}
-              Quantity: {food_quantity}
+              <span className="font-medium">Quantity:</span> {food_quantity}
             </p>
           </div>
         )}
 
         <div className="flex justify-between items-center gap-2 text-center">
-          <p className="text-gray-600 text-sm  border border-pink-400 rounded-full bg-green-300 text-center">
+          <p className="text-gray-600 text-sm  border border-green-600 bg-green-200 rounded-full  text-center">
             {" "}
-            Pickup: {pickup_location}
+            <span className="font-medium">Pickup:</span> {pickup_location}
           </p>
-          <p className="text-gray-600 text-sm  border border-pink-300 rounded-full bg-amber-100 text-center">
+          <p className="text-gray-600 text-sm  border border-green-600 rounded-full bg-green-200 text-center">
             {" "}
-            Expire: {expire_date}
+            <span className="font-medium">Expire:</span> {expire_date}
           </p>
         </div>
 
