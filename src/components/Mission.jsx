@@ -4,12 +4,12 @@ import React from "react";
 
 const Mission = () => {
   return (
-    <div className="max-w-6xl mx-auto px-6 text-center">
+    <div className="max-w-6xl mx-auto px-6 text-center mt-8">
       <motion.h2
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="text-3xl md:text-4xl font-bold text-gray-800 mb-6"
+        className="text-3xl md:text-4xl font-bold text-gray-800 mb-4"
       >
         Our Mission
       </motion.h2>

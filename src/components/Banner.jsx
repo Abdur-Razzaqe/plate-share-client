@@ -14,7 +14,7 @@ const slides = [
   {
     id: 2,
     title: "Be a Food Hero",
-    desc: "Every plate share brings happiness to someone in need.",
+    desc: "Every meal share brings happiness to someone in need.",
     img: "https://i.ibb.co.com/CsX5KPcb/photo-1504674900247-0877df9cc836.jpg",
   },
   {
@@ -26,7 +26,6 @@ const slides = [
 ];
 
 const Banner = () => {
-  // const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
   const [index, setIndex] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
@@ -68,17 +67,14 @@ const Banner = () => {
     enter: (dir) => ({
       x: dir > 0 ? "100%" : "-100%",
       opacity: 0,
-      // zIndex: 0,
     }),
     center: {
       x: 0,
       opacity: 1,
-      // zIndex: 1,
     },
     exit: (dir) => ({
       x: dir > 0 ? "-100%" : "100%",
       opacity: 0,
-      // zIndex: 0,
     }),
   };
 

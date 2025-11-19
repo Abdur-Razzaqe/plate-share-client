@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { GoHomeFill } from "react-icons/go";
 import { IoFastFoodOutline, IoLogIn, IoLogOut } from "react-icons/io5";
 import { FaUser } from "react-icons/fa6";
@@ -9,6 +9,13 @@ import icon from "../assets/icon.jpg";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    signOutUser().then(() => {
+      navigate("/");
+    });
+  };
 
   const activeClass =
     "text-pink-500 border-b-2 border-pink-500 transition duration-300";
@@ -58,7 +65,7 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to={"/"} className="flex items-center gap-1 text-xl font-bold">
-          <img src={logo} alt="" className="w-8 h-8" />
+          <img src={logo} alt="" className="w-8 h-8 rounded-full" />
           <span className="text-red-400">Plate</span>
           <span className="text-green-400">Share</span>
         </Link>
@@ -141,7 +148,7 @@ const Navbar = () => {
 
               <li>
                 <button
-                  onClick={signOutUser}
+                  onClick={handleLogout}
                   className="btn btn-xs text-left bg-linear-to-r from-pink-500 to-red-500 text-white"
                 >
                   <IoLogOut /> Logout

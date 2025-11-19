@@ -5,16 +5,19 @@ import {
   FaLinkedin,
   FaXTwitter,
 } from "react-icons/fa6";
+import logo from "../assets/logo.jpg";
 
 const Footer = () => {
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-gradient-to-r from-pink-600 via-purple-600 to-rose-600  pt-14 rounded-2xl">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:left ">
+    <footer className="bg-pink-300 px-2 pt-14 rounded-2xl">
+      <div className=" grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:left ">
         <div className="flex flex-col items-center md:items-start">
-          <h2 className="text-3xl font-bold text-white mb-3">
-            <span>PlateShare</span>
-          </h2>
+          <h3 className="flex items-center gap-1 text-xl font-bold ">
+            <img src={logo} alt="" className="w-8 h-8 rounded-full" />
+            <span className="text-red-400">Plate</span>
+            <span className="text-green-400">Share</span>
+          </h3>
           <p className="text-sm opacity-90 max-w-xs text-white">
             Share food, spread smiles. Together we can build a community where
             no food goes to waste.
@@ -25,21 +28,27 @@ const Footer = () => {
           <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <a href="/" className="hover:text-yellow-300 transition">
+              <a
+                href="/"
+                className=" text-white hover:text-yellow-300 transition"
+              >
                 Home
               </a>
             </li>
             <li>
               <a
                 href="/available-foods"
-                className="hover:text-yellow-300  transition"
+                className="text-white hover:text-yellow-300  transition"
               >
                 Available Foods
               </a>
             </li>
 
             <li>
-              <a href="/contact" className="hover:text-yellow-300  transition">
+              <a
+                href="/contact"
+                className="text-white hover:text-yellow-300  transition"
+              >
                 Contact Us
               </a>
             </li>
@@ -81,7 +90,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className=" border-t border-white/20  text-center text-sm opacity-80">
+      <div className=" border-t border-white/20  text-center text-sm opacity-80 text-white">
         ©{year} PlateShare - All rights reserved
       </div>
     </footer>

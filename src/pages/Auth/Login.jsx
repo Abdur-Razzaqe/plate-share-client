@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 
 import { FcGoogle } from "react-icons/fc";
@@ -11,7 +11,7 @@ import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 
 const Login = () => {
-  const { signInUser, signInWithGoogle } = use(AuthContext);
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -91,7 +91,7 @@ const Login = () => {
       <Navbar />
       <div className="flex-grow flex justify-center items-center bg-base-200 px-4 py-6">
         <div className="card bg-white w-full max-w-sm shadow-xl py-6 px-6 rounded-2xl">
-          <h2 className="font-bold text-3xl text-center mb-6 text-gray-900">
+          <h2 className="font-bold text-3xl text-center mb-6 text-pink-500">
             Welcome Back
           </h2>
           <p className="text-center text-pink-400 mb-6">

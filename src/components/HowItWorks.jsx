@@ -20,8 +20,8 @@ const HowItWorks = () => {
     },
   ];
   return (
-    <div className="max-w-6xl mx-auto text-center px-6">
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+    <div className="max-w-6xl mx-auto text-center px-6 mt-8">
+      <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
         How It Works
       </h2>
       <div className="grid md:grid-cols-3 gap-10">

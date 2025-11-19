@@ -9,7 +9,7 @@ const MainLayout = () => {
   const isHome = location.pathname === "/";
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-pink-50 to-white">
+    <div className="min-h-screen flex flex-col bg-pink-50">
       <header className="sticky to-0 z-50 bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Navbar />
@@ -24,11 +24,10 @@ const MainLayout = () => {
       <main className="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
         <Outlet />
       </main>
-      <footer className="mt-auto bg-white border-t border-pink-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 ">
-          <Footer />
-        </div>
-      </footer>
+
+      <div className="max-w-7xl mx-auto w-full px-4 ms:px-6 lg:px-8">
+        <Footer />
+      </div>
     </div>
   );
 };
