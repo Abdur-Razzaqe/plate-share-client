@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
       {
         path: "/available-foods",
         element: <AvailableFoods />,
-        loader: () => fetch("http://localhost:3000/foods"),
+        loader: () => fetch("https://plate-share-server-lac.vercel.app/foods"),
       },
       {
         path: "/add-food",
@@ -45,7 +45,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/foods/${params.id}`),
+          fetch(`https://plate-share-server-lac.vercel.app/foods/${params.id}`),
       },
       {
         path: "/manage-my-foods",
@@ -62,7 +62,7 @@ export const router = createBrowserRouter([
             <MyRequests />
           </PrivateRoute>
         ),
-        loader: () => fetch("http://localhost:3000/foods"),
+        loader: () => fetch("https://plate-share-server-lac.vercel.app/foods"),
       },
     ],
   },

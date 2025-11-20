@@ -14,7 +14,9 @@ const MyRequests = () => {
     const fetchRequests = async () => {
       setLoading(true);
       try {
-        const res = await fetch("http://localhost:3000/requests");
+        const res = await fetch(
+          "https://plate-share-server-lac.vercel.app/requests"
+        );
         const data = await res.json();
 
         const MyRequests = data.filter((req) => req.userEmail === user.email);
@@ -43,6 +45,7 @@ const MyRequests = () => {
         <table className="min-w-full divide-y divide-pink-100 mt-4">
           <thead className="bg-pink-100 text-gray-700">
             <tr>
+              <th className="px-4 py-3 text-center text-sm">SL</th>
               <th className="px-4 py-3 text-center text-sm">Food Name</th>
               <th className="px-4 py-3 text-center text-sm">Donator Email</th>
               <th className="px-4 py-3 text-center text-sm">Location</th>
@@ -52,11 +55,10 @@ const MyRequests = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-pink-50 bg-white">
-            {requests.map((req) => (
+            {requests.map((req, index) => (
               <tr key={req._id}>
-                <td className="px-4 py-3 flex items-center gap-2">
-                  {req.food_name}
-                </td>
+                <td className="px-4 py-3  ">{index + 1}</td>
+                <td className="px-4 py-3  ">{req.food_name}</td>
                 <td className="px-4 py-3">{req.donatorEmail}</td>
                 <td className="px-4 py-3">{req.location}</td>
                 <td className="px-4 py-3">{req.reason}</td>

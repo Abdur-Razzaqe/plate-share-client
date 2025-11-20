@@ -16,7 +16,7 @@ const ManageMyFoods = () => {
     const fetchFoods = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/foods?email=${user.email}`
+          `https://plate-share-server-lac.vercel.app/foods?email=${user.email}`
         );
         const data = await res.json();
         const allFoods = Array.isArray(data.result) ? data.result : [];
@@ -51,7 +51,7 @@ const ManageMyFoods = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          fetch(`http://localhost:3000/foods/${id}`, {
+          fetch(`https://plate-share-server-lac.vercel.app/foods/${id}`, {
             method: "DELETE",
           })
             .then((res) => res.json())
@@ -98,7 +98,7 @@ const ManageMyFoods = () => {
     };
     try {
       const res = await fetch(
-        `http://localhost:3000/foods/${selectedFood._id}`,
+        `https://plate-share-server-lac.vercel.app/foods/${selectedFood._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

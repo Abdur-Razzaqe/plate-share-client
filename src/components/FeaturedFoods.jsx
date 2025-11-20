@@ -12,7 +12,9 @@ const FeaturedFoods = () => {
     const fetchFoods = async () => {
       setLoading(true);
       try {
-        const res = await fetch("http://localhost:3000/foods");
+        const res = await fetch(
+          "https://plate-share-server-lac.vercel.app/foods"
+        );
         const data = await res.json();
 
         const allFoods = Array.isArray(data) ? data : data?.result || [];

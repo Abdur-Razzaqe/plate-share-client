@@ -36,7 +36,10 @@ const AddFood = () => {
     };
 
     try {
-      await axios.post("http://localhost:3000/foods", foodData);
+      await axios.post(
+        "https://plate-share-server-lac.vercel.app/foods",
+        foodData
+      );
       toast.success("Food added successfully!");
       setFormData({
         food_name: "",
@@ -47,17 +50,6 @@ const AddFood = () => {
         additional_notes: "",
       });
     } catch (err) {
-      // fetch('http://localhost:3000/foods', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type' : 'application/json',
-      //    },
-      //    body: JSON.stringify(formData)
-      // })
-      // .then(res => res.json())
-      // .then(data => {
-      //   console.log(data);
-      // })
       console.log(err);
       toast.error("Failed to add food. Try again!");
     }
@@ -147,7 +139,7 @@ const AddFood = () => {
             <textarea
               name="additional_note"
               type="text"
-              // value={formData.additional_notes}
+              value={formData.additional_notes || ""}
               onChange={handleChange}
               rows="3"
               placeholder="Any extra info..."

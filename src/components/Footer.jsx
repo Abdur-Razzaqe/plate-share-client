@@ -59,29 +59,33 @@ const Footer = () => {
           <h3 className="text-lg font-semibold text-white mb-4">Follow Us</h3>
           <div className="flex justify-center md:justify-end items-center gap-4">
             <a
-              href="#"
+              href="https://www.facebook.com/"
               className="p-3 bg-white bg-opacity-20 rounded-full hover:bg-opacity-40 transition text-lg"
+              target="blank"
             >
               {" "}
               <FaFacebook />{" "}
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/"
               className="p-3 bg-white bg-opacity-20 rounded-full hover:bg-opacity-40 transition text-lg"
+              target="blank"
             >
               {" "}
               <FaInstagram />{" "}
             </a>
             <a
-              href="#"
+              href="https://x.com/"
               className="p-3 bg-white bg-opacity-20 rounded-full hover:bg-opacity-40 transition text-lg"
+              target="blank"
             >
               {" "}
               <FaXTwitter />{" "}
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/in/abdur-razzak-717396b9/"
               className="p-3 bg-white bg-opacity-20 rounded-full hover:bg-opacity-40 transition text-lg"
+              target="blank"
             >
               {" "}
               <FaLinkedin />{" "}

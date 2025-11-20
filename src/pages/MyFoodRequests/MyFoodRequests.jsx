@@ -18,7 +18,7 @@ const MyFoodRequests = ({ food, openModal, setOpenModal }) => {
 
       try {
         const res = await fetch(
-          `http://localhost:3000/foods/${food._id}/requests`
+          `https://plate-share-server-lac.vercel.app/foods/${food._id}/requests`
         );
         const data = await res.json();
 
@@ -58,7 +58,7 @@ const MyFoodRequests = ({ food, openModal, setOpenModal }) => {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/foods/${food._id}/request`,
+        `https://plate-share-server-lac.vercel.app/foods/${food._id}/request`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -80,11 +80,14 @@ const MyFoodRequests = ({ food, openModal, setOpenModal }) => {
 
   const handleStatusChange = async (reqId, newStatus) => {
     try {
-      await fetch(`http://localhost:3000/foods/${food._id}/requests/${reqId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus }),
-      });
+      await fetch(
+        `https://plate-share-server-lac.vercel.app/foods/${food._id}/requests/${reqId}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: newStatus }),
+        }
+      );
       toast.success(`Request ${newStatus}!`);
 
       setRequests((prev) =>
@@ -92,11 +95,14 @@ const MyFoodRequests = ({ food, openModal, setOpenModal }) => {
       );
 
       if (newStatus === "accepted") {
-        await fetch(`http://localhost:3000/foods/${food._id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ food_status: "donated" }),
-        });
+        await fetch(
+          `https://plate-share-server-lac.vercel.app/foods/${food._id}`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ food_status: "donated" }),
+          }
+        );
       }
     } catch (err) {
       console.error(err);

@@ -16,7 +16,7 @@ const AvailableFoods = () => {
     const fetchFoods = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/foods?search=${encodeURIComponent(
+          `https://plate-share-server-lac.vercel.app/foods?search=${encodeURIComponent(
             searchQuery
           )}`
         );
