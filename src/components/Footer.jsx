@@ -53,11 +53,8 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link
-                to="/privacy-policy"
-                className="hover:text-green-400 transition"
-              >
-                Privacy Policy
+              <Link to="/about" className="hover:text-green-400 transition">
+                About Us
               </Link>
             </li>
           </ul>
@@ -70,7 +67,7 @@ const Footer = () => {
           </h3>
           <p className="text-sm mb-4">
             Email: support@plateshare.com <br />
-            Phone: +880 1234-567890
+            Phone: +880 1952558684
           </p>
 
           <div className="flex gap-4">

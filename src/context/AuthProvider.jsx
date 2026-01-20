@@ -65,7 +65,10 @@ const AuthProvider = ({ children }) => {
         };
 
         try {
-          await axios.post("http://localhost:3000/users", userData);
+          await axios.post(
+            "https://plate-share-server-polish.vercel.app/users",
+            userData,
+          );
           console.log("User synced with MongoDB");
         } catch (error) {
           console.error("Error saving user to DB:", error);

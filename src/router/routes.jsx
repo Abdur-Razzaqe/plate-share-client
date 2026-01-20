@@ -17,6 +17,8 @@ import Profile from "../pages/Dashboard/Profile";
 import ManageFoods from "../pages/Dashboard/ManageFoods";
 import AdminOverview from "../pages/Dashboard/AdminOverview";
 import UserManagement from "../pages/Dashboard/UserManagement";
+import Contact from "../components/Contact";
+import About from "../components/About";
 
 export const router = createBrowserRouter([
   {
@@ -32,14 +34,25 @@ export const router = createBrowserRouter([
       {
         path: "/available-foods",
         element: <AvailableFoods />,
-        loader: () => fetch("http://localhost:3000/foods"),
+        loader: () =>
+          fetch("https://plate-share-server-polish.vercel.app/foods"),
       },
 
       {
         path: "/foods/:id",
         element: <FoodDetails />,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/foods/${params.id}`),
+          fetch(
+            `https://plate-share-server-polish.vercel.app/foods/${params.id}`,
+          ),
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/about",
+        element: <About />,
       },
       {
         path: "/manage-my-foods",
@@ -85,7 +98,8 @@ export const router = createBrowserRouter([
           {
             path: "my-requests",
             element: <MyRequests />,
-            loader: () => fetch("http://localhost:3000/foods"),
+            loader: () =>
+              fetch("https://plate-share-server-polish.vercel.app/foods"),
           },
         ],
       },
