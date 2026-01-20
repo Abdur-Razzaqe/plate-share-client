@@ -99,14 +99,7 @@ const Navbar = () => {
                 <IoFastFoodOutline /> Available Foods
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/available-foods"
-                className={({ isActive }) => (isActive ? activeClass : "")}
-              >
-                <IoFastFoodOutline /> Available Foods
-              </NavLink>
-            </li>
+
             {user && (
               <li>
                 <NavLink

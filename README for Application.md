@@ -1,7 +1,7 @@
 1. Website Name: plate-share
    PlateShare is a full-stack MERN application that allows users to share surplus food with the community. User can post food items they want to donate, and other users can browse and request these food items.
 
-2.Live site URL: https://plate-share-999.netlify.app/
+2.Live site URL: https://plate-share-polish.netlify.app/
 
 3. Features:
    a. Authentication:-
