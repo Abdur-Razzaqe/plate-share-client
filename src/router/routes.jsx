@@ -5,13 +5,18 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import AvailableFoods from "../pages/AvailableFoods/AvailableFoods";
 import PrivateRoute from "./PrivateRoute";
-import AddFood from "../pages/AddFood/AddFood";
+import AddFood from "../pages/Dashboard/AddFood";
 import FoodDetails from "../pages/FoodDetails/FoodDetails";
 import ManageMyFoods from "../pages/ManageMyFoods/ManageMyFoods";
-import MyFoodRequests from "../pages/MyFoodRequests/MyFoodRequests";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import LoadingSpinner from "../components/LoadingSpinner";
-import MyRequests from "../pages/MyFoodRequests/MyRequests";
+import MyRequests from "../pages/Dashboard/MyRequests";
+import DashboardLayout from "../layout/DashboardLayout";
+import Overview from "../pages/Dashboard/Overview";
+import Profile from "../pages/Dashboard/Profile";
+import ManageFoods from "../pages/Dashboard/ManageFoods";
+import AdminOverview from "../pages/Dashboard/AdminOverview";
+import UserManagement from "../pages/Dashboard/UserManagement";
 
 export const router = createBrowserRouter([
   {
@@ -27,25 +32,14 @@ export const router = createBrowserRouter([
       {
         path: "/available-foods",
         element: <AvailableFoods />,
-        loader: () => fetch("https://plate-share-server-lac.vercel.app/foods"),
+        loader: () => fetch("http://localhost:3000/foods"),
       },
-      {
-        path: "/add-food",
-        element: (
-          <PrivateRoute>
-            <AddFood />
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "/foods/:id",
-        element: (
-          <PrivateRoute>
-            <FoodDetails />
-          </PrivateRoute>
-        ),
+        element: <FoodDetails />,
         loader: ({ params }) =>
-          fetch(`https://plate-share-server-lac.vercel.app/foods/${params.id}`),
+          fetch(`http://localhost:3000/foods/${params.id}`),
       },
       {
         path: "/manage-my-foods",
@@ -55,14 +49,45 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+
       {
-        path: "/my-food-requests",
+        path: "/dashboard",
         element: (
           <PrivateRoute>
-            <MyRequests />
+            <DashboardLayout />
           </PrivateRoute>
         ),
-        loader: () => fetch("https://plate-share-server-lac.vercel.app/foods"),
+        children: [
+          {
+            index: true,
+            element: <Overview />,
+          },
+          {
+            path: "admin-overview",
+            element: <AdminOverview />,
+          },
+          {
+            path: "users",
+            element: <UserManagement />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+          {
+            path: "manage-foods",
+            element: <ManageFoods />,
+          },
+          {
+            path: "add-food",
+            element: <AddFood />,
+          },
+          {
+            path: "my-requests",
+            element: <MyRequests />,
+            loader: () => fetch("http://localhost:3000/foods"),
+          },
+        ],
       },
     ],
   },

@@ -1,36 +1,35 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import FoodCard from "./FoodCard";
-import LoadingSpinner from "./LoadingSpinner";
+import FoodSkeleton from "./FoodSkeleton";
 
 const FeaturedFoods = () => {
   const [foods, setFoods] = useState([]);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFoods = async () => {
-      setLoading(true);
       try {
         const res = await fetch(
-          "https://plate-share-server-lac.vercel.app/foods"
+          "https://plate-share-server-lac.vercel.app/foods",
         );
         const data = await res.json();
 
         const allFoods = Array.isArray(data) ? data : data?.result || [];
 
-        const sorted = allFoods
+        const featured = allFoods
           .filter((item) => item.food_status === "Available")
           .sort((a, b) => {
-            const numA = parseInt(a.food_quantity.match(/\d+/))?.[0] || 0;
-            const numB = parseInt(b.food_quantity.match(/\d+/))?.[0] || 0;
+            const numA = parseInt(a.food_quantity.match(/\d+/)?.[0] || 0);
+            const numB = parseInt(b.food_quantity.match(/\d+/)?.[0] || 0);
             return numB - numA;
           })
-          .slice(0, 6);
+          .slice(0, 8);
 
-        setFoods(sorted);
+        setFoods(featured);
       } catch (error) {
-        console.log("Error fetching foods:", error);
+        console.error("Failed to fetch foods:", error);
       } finally {
         setLoading(false);
       }
@@ -39,31 +38,34 @@ const FeaturedFoods = () => {
     fetchFoods();
   }, []);
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
-
   return (
-    <div>
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-10 ">
-        Feature Foods
-      </h2>
-
-      <div className="grid grid-col md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {foods.map((food) => (
-          <FoodCard key={food._id} food={food} />
-        ))}
+    <section className="py-16 max-w-7xl mx-auto px-4">
+      {/* Section Header */}
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold">Featured Foods</h2>
+        <p className="mt-3 text-gray-600 max-w-xl mx-auto">
+          Explore the most generous food donations currently available in our
+          community.
+        </p>
       </div>
 
-      <div className=" text-center mt-10">
+      {/* Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {loading
+          ? Array.from({ length: 4 }).map((_, i) => <FoodSkeleton key={i} />)
+          : foods.map((food) => <FoodCard key={food._id} food={food} />)}
+      </div>
+
+      {/* CTA */}
+      <div className="text-center mt-12">
         <button
           onClick={() => navigate("/available-foods")}
-          className="bg-gradient-to-r from-pink-500 to-rose-400 text-white py-3 px-8 rounded-full font-semibold border border-pink-200 hover:shadow-lg cursor-pointer transition-all"
+          className="btn bg-pink-600 hover:bg-pink-700 text-white rounded-full px-8"
         >
-          show All
+          View All Foods
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,14 +1,18 @@
 import React from "react";
 
-const LoadingSpinner = () => {
+const LoadingSpinner = ({ fullPage = true }) => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-pink-100 to-rose-100 ">
+    <div
+      className={`flex justify-center items-center ${
+        fullPage ? "min-h-screen" : "py-20"
+      }`}
+    >
       <div className="relative flex items-center justify-center">
-        <div className="absolute w-24 h-24 rounded-full border-4 border-transparent border-t-pink-500 border-r-rose-400 animate-spin"></div>
-        <div className="absolute w-12 h-12 bg-gradient-to-r from-pink-400 to-rose-500 rounded-full animate-pulse shadow-lg shadow-pink-200"></div>
-        <div className="absolute text-pink-600 font-bold text-sm tracking-wide animate-bounce ">
-          Loading....
-        </div>
+        {/* Outer Spinner */}
+        <div className="w-16 h-16 rounded-full border-4 border-pink-200 border-t-pink-500 animate-spin"></div>
+
+        {/* Inner Dot */}
+        <div className="absolute w-6 h-6 rounded-full bg-gradient-to-r from-pink-500 to-rose-400 animate-pulse"></div>
       </div>
     </div>
   );

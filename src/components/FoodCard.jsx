@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import toast from "react-hot-toast";
@@ -15,80 +15,96 @@ const FoodCard = ({ food }) => {
     food_quantity,
     pickup_location,
     expire_date,
+    food_status = "Available",
     donator = {},
   } = food;
-  const { name, image } = donator;
+
+  const { name: donatorName, image: donatorImage } = donator;
 
   const handleViewDetails = () => {
     if (user) {
       navigate(`/foods/${_id}`);
     } else {
-      toast.error("Please login to view food details!");
-      setTimeout(() => {
-        navigate("/auth/login");
-      }, 1500);
+      toast.error("Please login to view food details");
+      setTimeout(() => navigate("/auth/login"), 1200);
+    }
+  };
+
+  // Helper to ensure image URLs are valid
+  const validImage = (url, fallback) => {
+    try {
+      if (!url || !url.startsWith("http")) return fallback;
+      return url;
+    } catch {
+      return fallback;
     }
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={{
-        scale: 1.05,
-        y: -10,
-        boxShadow: "0px 12px 30px rgba(255, 72, 100, 0.25) ",
-      }}
-      whileTap={{ scale: 0.97 }}
-      transition={{ duration: 0.6 }}
-      className="card bg-base-100 shadow-sm rounded-2xl overflow-hidden border border-pink-100 hover:shadow-lg transition-all duration-300"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.4 }}
+      className="card bg-base-100 border rounded-2xl overflow-hidden h-full flex flex-col"
     >
+      {/* Image */}
       <div className="relative">
-        <figure className="px-6 pt-6">
-          <img
-            src={food_image || "https://via.placeholder.com/300"}
-            alt={food_name}
-            className="rounded-xl w-full h-56 object-cover"
-          />
-        </figure>
+        <img
+          src={validImage(food_image, "https://via.placeholder.com/400")}
+          alt={food_name || "Food Item"}
+          className="w-full h-52 object-cover"
+        />
+
+        {/* Status Badge */}
+        <span
+          className={`absolute top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full text-white ${
+            food_status === "Available" ? "bg-pink-600" : "bg-gray-500"
+          }`}
+        >
+          {food_status}
+        </span>
       </div>
-      <div className="card-body p-5 space-y-3">
-        <h2 className="card-title text-xl font-bold text-gray-800">
-          {food_name}
-        </h2>
-        {name && (
-          <div className="flex justify-between items-center gap-10">
-            <div className="flex items-center gap-3">
+
+      {/* Body */}
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="text-lg font-bold text-gray-800 mb-2 line-clamp-1">
+          {food_name || "Unnamed Food"}
+        </h3>
+
+        {/* Donator + Quantity */}
+        {donatorName && (
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
               <img
-                src={image || "https://via.placeholder.com/40"}
-                alt={name}
-                className="w-8 h-8 rounded-full border"
+                src={validImage(donatorImage, "https://via.placeholder.com/40")}
+                alt={donatorName}
+                className="w-8 h-8 rounded-full border object-cover"
               />
-              <div>
-                <p className="text-gray-700 text-sm font-medium">{name}</p>
-              </div>
+              <p className="text-sm font-medium text-gray-700">{donatorName}</p>
             </div>
-            <p className="text-gray-600 text-sm ">
-              {" "}
-              <span className="font-medium">Quantity:</span> {food_quantity}
+            <p className="text-sm text-gray-600">
+              <span className="font-medium">Qty:</span> {food_quantity || "N/A"}
             </p>
           </div>
         )}
 
-        <div className="flex justify-between items-center gap-2 text-center">
-          <p className="text-gray-600 text-sm  border border-green-600 bg-green-200 rounded-full  text-center">
-            {" "}
-            <span className="font-medium">Pickup:</span> {pickup_location}
+        {/* Meta Info */}
+        <div className="text-sm text-gray-600 space-y-1 mb-4">
+          <p>
+            <span className="font-medium">Pickup:</span>{" "}
+            {pickup_location || "Not specified"}
           </p>
-          <p className="text-gray-600 text-sm  border border-green-600 rounded-full bg-green-200 text-center">
-            {" "}
-            <span className="font-medium">Expire:</span> {expire_date}
+          <p>
+            <span className="font-medium">Expire:</span>{" "}
+            {expire_date || "No date"}
           </p>
         </div>
 
+        {/* Button */}
         <button
           onClick={handleViewDetails}
-          className="w-full mt-3 bg-gradient-to-r from-pink-500 to-rose-400 text-white py-2 rounded-full font-semibold border border-pink-200 hover:shadow-lg cursor-pointer transition-all text-center"
+          className="mt-auto btn bg-pink-600 hover:bg-pink-700 text-white rounded-full"
         >
           View Details
         </button>

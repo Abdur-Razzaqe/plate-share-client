@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router";
 import {
   FaFacebook,
   FaInstagram,
@@ -9,93 +9,110 @@ import logo from "../assets/logo.jpg";
 
 const Footer = () => {
   const year = new Date().getFullYear();
+
   return (
-    <footer className="bg-pink-300 px-2 pt-14 rounded-2xl">
-      <div className=" grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:left ">
-        <div className="flex flex-col items-center md:items-start">
-          <h3 className="flex items-center gap-1 text-xl font-bold ">
-            <img src={logo} alt="" className="w-8 h-8 rounded-full" />
+    <footer className="bg-gray-900 text-gray-300 mt-1">
+      <div className="max-w-7xl mx-auto px-6 py-5 grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* Brand */}
+        <div>
+          <div className="flex items-center gap-2 text-xl font-bold mb-4">
+            <img
+              src={logo}
+              alt="PlateShare logo"
+              className="w-9 h-9 rounded-full"
+            />
             <span className="text-red-400">Plate</span>
-            <span className="text-green-400">Share</span>
-          </h3>
-          <p className="text-sm opacity-90 max-w-xs text-white">
-            Share food, spread smiles. Together we can build a community where
-            no food goes to waste.
+            <span className="text-green-500">Share</span>
+          </div>
+          <p className="text-sm max-w-sm leading-relaxed">
+            PlateShare is a community-driven platform where people can share
+            surplus food and help reduce food waste together.
           </p>
         </div>
 
+        {/* Quick Links */}
         <div>
           <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <a
-                href="/"
-                className=" text-white hover:text-yellow-300 transition"
-              >
+              <Link to="/" className="hover:text-green-400 transition">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/available-foods"
-                className="text-white hover:text-yellow-300  transition"
+              <Link
+                to="/available-foods"
+                className="hover:text-green-400 transition"
               >
                 Available Foods
-              </a>
+              </Link>
             </li>
-
             <li>
-              <a
-                href="/contact"
-                className="text-white hover:text-yellow-300  transition"
-              >
+              <Link to="/contact" className="hover:text-green-400 transition">
                 Contact Us
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/privacy-policy"
+                className="hover:text-green-400 transition"
+              >
+                Privacy Policy
+              </Link>
             </li>
           </ul>
         </div>
 
+        {/* Contact & Social */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">Follow Us</h3>
-          <div className="flex justify-center md:justify-end items-center gap-4">
+          <h3 className="text-lg font-semibold text-white mb-4">
+            Contact & Social
+          </h3>
+          <p className="text-sm mb-4">
+            Email: support@plateshare.com <br />
+            Phone: +880 1234-567890
+          </p>
+
+          <div className="flex gap-4">
             <a
               href="https://www.facebook.com/"
-              className="p-3 bg-white bg-opacity-20 rounded-full hover:bg-opacity-40 transition text-lg"
-              target="blank"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-white/10 rounded-full hover:bg-green-600 hover:text-white transition"
             >
-              {" "}
-              <FaFacebook />{" "}
+              <FaFacebook />
             </a>
             <a
               href="https://www.instagram.com/"
-              className="p-3 bg-white bg-opacity-20 rounded-full hover:bg-opacity-40 transition text-lg"
-              target="blank"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-white/10 rounded-full hover:bg-green-600 hover:text-white transition"
             >
-              {" "}
-              <FaInstagram />{" "}
+              <FaInstagram />
             </a>
             <a
               href="https://x.com/"
-              className="p-3 bg-white bg-opacity-20 rounded-full hover:bg-opacity-40 transition text-lg"
-              target="blank"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-white/10 rounded-full hover:bg-green-600 hover:text-white transition"
             >
-              {" "}
-              <FaXTwitter />{" "}
+              <FaXTwitter />
             </a>
             <a
-              href="https://www.linkedin.com/in/abdur-razzak-717396b9/"
-              className="p-3 bg-white bg-opacity-20 rounded-full hover:bg-opacity-40 transition text-lg"
-              target="blank"
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-white/10 rounded-full hover:bg-green-600 hover:text-white transition"
             >
-              {" "}
-              <FaLinkedin />{" "}
+              <FaLinkedin />
             </a>
           </div>
         </div>
       </div>
 
-      <div className=" border-t border-white/20  text-center text-sm opacity-80 text-white">
-        ©{year} PlateShare - All rights reserved
+      {/* Bottom */}
+      <div className="border-t border-white/10 py-4 text-center text-sm text-gray-400">
+        © {year} PlateShare. All rights reserved.
       </div>
     </footer>
   );
